@@ -1,14 +1,20 @@
+import os
 import openai
 from keys import OPENAI_API_KEY
 from prompts import create_prompt, INITIAL_RESPONSE
 import time
 
-openai.api_key = OPENAI_API_KEY
+if os.environ.get("OPENAI_API_KEY") is not None:
+    openai.api_key = os.environ.get("OPENAI_API_KEY")
+
+if os.environ.get("OPENAI_BASE_URL") is not None:
+    openai.base_url = os.environ.get("OPENAI_BASE_URL")
 
 def generate_response_from_transcript(transcript):
     try:
+        model = os.environ.get("OPENAI_MODEL", "gpt-4-turbo")
         response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo-0301",
+                model=model,
                 messages=[{"role": "system", "content": create_prompt(transcript)}],
                 temperature = 0.0
         )

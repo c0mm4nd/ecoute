@@ -1,5 +1,10 @@
 import custom_speech_recognition as sr
-import pyaudiowpatch as pyaudio
+import os
+if os.name == 'nt':
+    import pyaudiowpatch as pyaudio
+else:
+    import pyaudio
+
 from datetime import datetime
 
 RECORD_TIMEOUT = 3

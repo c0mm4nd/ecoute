@@ -10,6 +10,9 @@ import sys
 import TranscriberModels
 import subprocess
 
+from dotenv import load_dotenv
+load_dotenv()
+
 def write_in_textbox(textbox, text):
     textbox.delete("0.0", "end")
     textbox.insert("0.0", text)
